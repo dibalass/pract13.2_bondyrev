@@ -47,6 +47,7 @@ namespace pract13._2
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -55,6 +56,7 @@ namespace pract13._2
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip2.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -113,6 +115,7 @@ namespace pract13._2
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.numericUpDown1);
             this.panel2.Controls.Add(this.textBox5);
             this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.textBox4);
@@ -129,34 +132,35 @@ namespace pract13._2
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(329, 558);
             this.panel2.TabIndex = 0;
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(41, 344);
+            this.textBox5.Location = new System.Drawing.Point(45, 345);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(113, 20);
+            this.textBox5.Size = new System.Drawing.Size(196, 20);
             this.textBox5.TabIndex = 10;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(38, 132);
+            this.label5.Location = new System.Drawing.Point(42, 212);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(49, 13);
+            this.label5.Size = new System.Drawing.Size(78, 13);
             this.label5.TabIndex = 9;
-            this.label5.Text = "Возраст";
+            this.label5.Text = "Год рождения";
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(41, 282);
+            this.textBox4.Location = new System.Drawing.Point(45, 306);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(113, 20);
+            this.textBox4.Size = new System.Drawing.Size(196, 20);
             this.textBox4.TabIndex = 8;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(38, 328);
+            this.label4.Location = new System.Drawing.Point(42, 329);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(93, 13);
             this.label4.TabIndex = 7;
@@ -165,9 +169,9 @@ namespace pract13._2
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(41, 379);
+            this.button1.Location = new System.Drawing.Point(45, 371);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(196, 23);
             this.button1.TabIndex = 6;
             this.button1.Text = "Добавить";
             this.button1.UseVisualStyleBackColor = true;
@@ -175,15 +179,15 @@ namespace pract13._2
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(41, 216);
+            this.textBox3.Location = new System.Drawing.Point(45, 267);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(113, 20);
+            this.textBox3.Size = new System.Drawing.Size(196, 20);
             this.textBox3.TabIndex = 5;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(38, 266);
+            this.label3.Location = new System.Drawing.Point(42, 290);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(132, 13);
             this.label3.TabIndex = 4;
@@ -191,15 +195,15 @@ namespace pract13._2
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(41, 148);
+            this.textBox2.Location = new System.Drawing.Point(45, 228);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(113, 20);
+            this.textBox2.Size = new System.Drawing.Size(196, 20);
             this.textBox2.TabIndex = 3;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(38, 200);
+            this.label2.Location = new System.Drawing.Point(42, 251);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(103, 13);
             this.label2.TabIndex = 2;
@@ -207,19 +211,41 @@ namespace pract13._2
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(41, 85);
+            this.textBox1.Location = new System.Drawing.Point(45, 189);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(113, 20);
+            this.textBox1.Size = new System.Drawing.Size(196, 20);
             this.textBox1.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(38, 69);
+            this.label1.Location = new System.Drawing.Point(42, 173);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(98, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "ФИО гражданина";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(45, 228);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            2023,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            1900,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(196, 20);
+            this.numericUpDown1.TabIndex = 11;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            1900,
+            0,
+            0,
+            0});
             // 
             // Form1
             // 
@@ -239,6 +265,7 @@ namespace pract13._2
             this.contextMenuStrip2.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -262,6 +289,7 @@ namespace pract13._2
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
     }
 }
 
