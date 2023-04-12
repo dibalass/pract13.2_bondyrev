@@ -29,7 +29,6 @@ namespace pract13._2
             dataGridView1.Columns.Add(getDataGridViewColumn4());
             dataGridView1.Columns.Add(getDataGridViewColumn2());
             dataGridView1.Columns.Add(getDataGridViewColumn5());
-            dataGridView1.Columns.Add(getDataGridViewColumn6());
             dataGridView1.AutoResizeColumns();
         }
         private DataGridViewColumn getDataGridViewColumn1()
@@ -40,7 +39,7 @@ namespace pract13._2
                 dataGridViewColumn1.Name = "";
                 dataGridViewColumn1.HeaderText = "ФИО";
                 dataGridViewColumn1.ValueType = typeof(string);
-                dataGridViewColumn1.Width = dataGridView1.Width / 6;
+                dataGridViewColumn1.Width = dataGridView1.Width / 5;
             }
             return dataGridViewColumn1;
         }
@@ -52,7 +51,7 @@ namespace pract13._2
                 dataGridViewColumn2.Name = "";
                 dataGridViewColumn2.HeaderText = "Год получения";
                 dataGridViewColumn2.ValueType = typeof(int);
-                dataGridViewColumn2.Width = dataGridView1.Width / 6;
+                dataGridViewColumn2.Width = dataGridView1.Width / 5;
             }
             return dataGridViewColumn2;
         }
@@ -64,7 +63,7 @@ namespace pract13._2
                 dataGridViewColumn3.Name = "";
                 dataGridViewColumn3.HeaderText = "Гражданин страны";
                 dataGridViewColumn3.ValueType = typeof(string);
-                dataGridViewColumn3.Width = dataGridView1.Width / 6;
+                dataGridViewColumn3.Width = dataGridView1.Width / 5;
             }
             return dataGridViewColumn3;
         }
@@ -76,7 +75,7 @@ namespace pract13._2
                 dataGridViewColumn4.Name = "";
                 dataGridViewColumn4.HeaderText = "Данные паспорта";
                 dataGridViewColumn4.ValueType = typeof(int);
-                dataGridViewColumn4.Width = dataGridView1.Width / 6;
+                dataGridViewColumn4.Width = dataGridView1.Width / 5;
             }
             return dataGridViewColumn4;
         }
@@ -88,21 +87,9 @@ namespace pract13._2
                 dataGridViewColumn5.Name = "";
                 dataGridViewColumn5.HeaderText = "Номер телефона";
                 dataGridViewColumn5.ValueType = typeof(long);
-                dataGridViewColumn5.Width = dataGridView1.Width / 6;
+                dataGridViewColumn5.Width = dataGridView1.Width / 5;
             }
             return dataGridViewColumn5;
-        }
-        private DataGridViewColumn getDataGridViewColumn6()
-        {
-            if (dataGridViewColumn6 == null)
-            {
-                dataGridViewColumn6 = new DataGridViewTextBoxColumn();
-                dataGridViewColumn6.Name = "";
-                dataGridViewColumn6.HeaderText = "Когда менять паспорт";
-                dataGridViewColumn6.ValueType = typeof(string);
-                dataGridViewColumn6.Width = dataGridView1.Width / 6;
-            }
-            return dataGridViewColumn6;
         }
         public Form1()
         {
@@ -114,41 +101,17 @@ namespace pract13._2
             Citizen s = new Citizen( FIO, age, country, passport, number);
             list.AddFirst(s);
             textBox1.Text = "";
-            //textBox2.Text = "";
-            numericUpDown1.Value = 1900;
+            textBox2.Text = "";
             textBox3.Text = "";
             textBox4.Text = "";
             textBox5.Text = "";
             showListInGrid();
         }
 
-        private void deleteCitizen(int elementIndex)
+        private void deleteCitizen()
         {
-            list.RemoveFirst(/*elementIndex*/);
+            list.RemoveFirst();
             showListInGrid();
-        }
-        string passport(decimal chisl)
-        {
-            int year = Convert.ToInt32(/*textBox2.Text*/chisl);
-            string stroka = "";
-            int vozrast = 2023 - year;
-            if (vozrast >= 45)
-            {
-                stroka = "Паспорт больше не нужно менять";
-            }
-            else if (vozrast >= 20)
-            {
-                stroka = $"Паспорт нужно будет поменять в {year + 45} году";
-            }
-            else if (vozrast >= 14)
-            {
-                stroka = $"Паспорт нужно будет поменять в {year + 20}\nи в {year + 45} годах";
-            }
-            else
-            {
-                stroka = $"Паспорт нужно будет получить в {year + 14} году\nобновить в {year + 20}\n и в {year + 45} годах";
-            }
-            return stroka;
         }
         private void showListInGrid()
         {
@@ -161,7 +124,6 @@ namespace pract13._2
                 DataGridViewTextBoxCell cell3 = new DataGridViewTextBoxCell();
                 DataGridViewTextBoxCell cell4 = new DataGridViewTextBoxCell();
                 DataGridViewTextBoxCell cell5 = new DataGridViewTextBoxCell();
-                DataGridViewTextBoxCell cell6 = new DataGridViewTextBoxCell();
                 cell1.ValueType = typeof(string);
                 cell1.Value = s.Fio;
                 cell2.ValueType = typeof(int);
@@ -172,18 +134,15 @@ namespace pract13._2
                 cell4.Value = s.Passport;
                 cell5.ValueType = typeof(long);
                 cell5.Value = s.Number; 
-                cell6.ValueType = typeof(string);
-                cell6.Value = passport(numericUpDown1.Value);
                 row.Cells.Add(cell1);
                 row.Cells.Add(cell2);
                 row.Cells.Add(cell3);
                 row.Cells.Add(cell4);
                 row.Cells.Add(cell5);
-                row.Cells.Add(cell6);
                 dataGridView1.Rows.Add(row);
             }
         }
-        
+
         bool chislo(string s)
         {
             foreach (var item in s)
@@ -213,35 +172,51 @@ namespace pract13._2
             }
             return true;
         }
+        bool povtor(string str)
+        {
+            bool check = false;
+            for (int i = 0; i < dataGridView1.RowCount; i++)
+            {
+                dataGridView1.Rows[i].Selected = false;
+                for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                    if (dataGridView1.Rows[i].Cells[j].Value != null)
+                        if (dataGridView1.Rows[i].Cells[j].Value.ToString().Contains(str))
+                        {
+                            check = true;
+                        }
+            }
+            return check;
+        }
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text != "" && /*textBox2.Text != ""*/ textBox3.Text != "" && textBox4.Text != "" && textBox5.Text != "")
+            if (textBox1.Text != "" && textBox2.Text != ""&& textBox3.Text != "" && textBox4.Text != "" && textBox5.Text != "")
             {
                 bool proverka1 = fioproverka(textBox1.Text);
                 bool proverka2 = nechislo(textBox3.Text);
                 bool proverka3 = chislo(textBox4.Text);
                 bool proverka4 = chislo(textBox2.Text);
                 bool proverka5 = chislo(textBox5.Text);
+                bool proverka6 = povtor(textBox4.Text);
                 if (proverka1 == true)
                 {
                     if (proverka2 == true)
                     {
-                        if (proverka3 == true&&textBox4.TextLength==10)
+                        if (proverka3 == true&&textBox4.TextLength==10&&proverka6==false)
                         {
-                            //if (proverka4 == true&&Convert.ToInt32(textBox2.Text)>1950&& Convert.ToInt32(textBox2.Text) <= 2023)
+                            if (proverka4 == true && Convert.ToInt32(textBox2.Text) > 1950 && Convert.ToInt32(textBox2.Text) <= 2023)
                             {
                                 if (proverka5 == true&&Convert.ToInt64(textBox5.Text) >= 80000000000 && Convert.ToInt64(textBox5.Text) < 90000000000)
                                 {
-                                    addCitizen(textBox1.Text, Convert.ToInt32(numericUpDown1.Value), textBox3.Text, Convert.ToInt32(textBox4.Text), Convert.ToInt64(textBox5.Text));
+                                    addCitizen(textBox1.Text, Convert.ToInt32(textBox2.Text), textBox3.Text, Convert.ToInt32(textBox4.Text), Convert.ToInt64(textBox5.Text));
                                 }
                                 else
                                     MessageBox.Show("Номер телефона должен состоять из 11 цифр и начинаться на 8");
                             }
-                            //else
-                            //    MessageBox.Show("Год должен находиться в диапазоне от 1950 до 2023");
+                            else
+                                MessageBox.Show("Год должен находиться в диапазоне от 1950 до 2023");
                         }
                         else
-                            MessageBox.Show("Данные паспорта должны содержать только цифры");
+                            MessageBox.Show("Данные паспорта не могут повторяться и должны содержать только 10 цифр");
                     }
                     else
                         MessageBox.Show("Страна должно состоять только из букв");
@@ -263,7 +238,7 @@ namespace pract13._2
             {
                 try
                 {
-                    deleteCitizen(selectedRow);
+                    deleteCitizen();
                 }
                 catch (Exception)
                 {
@@ -280,6 +255,41 @@ namespace pract13._2
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < dataGridView1.RowCount; i++)
+            {
+                dataGridView1.Rows[i].Selected = false;
+                for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                    if (dataGridView1.Rows[i].Cells[j].Value != null)
+                        if (dataGridView1.Rows[i].Cells[j].Value.ToString().Contains(textBox6.Text))
+                        {
+                            dataGridView1.Rows[i].Selected = true;
+                            break;
+                        }
+            }
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            for (int i = 0; i < dataGridView1.RowCount; i++)
+            {
+                dataGridView1.Rows[i].Selected = false;
+                for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                    if (dataGridView1.Rows[i].Cells[j].Value != null)
+                        if (dataGridView1.Rows[i].Cells[j].Value.ToString().Contains(textBox6.Text))
+                        {
+                            dataGridView1.Rows[i].Selected = true;
+                            break;
+                        }
+            }
         }
     }
 }
